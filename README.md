@@ -12,7 +12,7 @@ The aim of this project is to help banks mitigate this issue by providing a high
 About the data <a name="2"></a>
 ------------
 
-The dataset has been taken from Kaggle, titled [Loan Default Dataset] (https://www.kaggle.com/datasets/yasserh/loan-default-dataset). It consists of past data on loan borrowers and contains a lot of features such as borrower's income, gender, loan purpose, rate of interest, term, etc.
+The dataset has been taken from Kaggle, titled [Loan Default Dataset](https://www.kaggle.com/datasets/yasserh/loan-default-dataset). It consists of past data on loan borrowers and contains a lot of features such as borrower's income, gender, loan purpose, rate of interest, term, etc.
 
 
 Project Organization <a name="3"></a>
