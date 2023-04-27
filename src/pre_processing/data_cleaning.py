@@ -6,7 +6,7 @@ import pandas as pd
 # -----------------------------------------------------------------------------
 # Functions
 # -----------------------------------------------------------------------------
-def get_data():
+def get_data() -> pd.DataFrame:
     """
     Get data from data/raw folder
     """
@@ -17,7 +17,7 @@ def get_data():
 
     return df
 
-def clean_data(df):
+def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Clean data
     """
@@ -58,7 +58,7 @@ def clean_data(df):
         
     return df
 
-def save_data(df):
+def save_data(df: pd.DataFrame) -> None:
     """
     Save data to data/interim folder
     """
