@@ -47,13 +47,14 @@ The repository is structured in the following hierarchy:
     ├── src                <- Source code for use in this project
     │   ├── __init__.py    <- Makes src a Python module
     │   │
-    │   ├── data           <- Scripts to download or generate data
+    │   ├── pre-processing <- Scripts to download or generate data
     │   │   └── data_cleaning.py
     │   │
     │   ├── features       <- Scripts to turn raw data into features for modeling
     │   │   └── feature_engineering.py
+    |   |   └── train_test_split.py
     │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
+    │   ├── train         <- Scripts to train models and then use trained models to make
     │   │   │                 predictions
     │   │   ├── predict_model.py
     │   │   └── train_model.py
