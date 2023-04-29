@@ -31,13 +31,17 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     for col in ["income", "property_value", "LTV", "dtir1"]:
         imputer = KNNImputer(n_neighbors=3)
         df[col] = imputer.fit_transform(df[[col]])
+
+    # Replacing ">" and "<" in age column
+    df["age"] = df["age"].str.replace(">", "greater_than_")
+    df["age"] = df["age"].str.replace("<", "lesser_than_")
         
     # Creating a new column with 5 income bins based on lowest and highest income
-    df["income_bin"] = pd.cut(df["income"], bins=[0, 2000, 4000, 6000, 10000, 1000000], labels=["0-2k", "2k-4k", "4k-6k", "6k-10k", ">10k"])
+    df["income_bin"] = pd.cut(df["income"], bins=[0, 2000, 4000, 6000, 10000, 1000000], labels=["0-2k", "2k-4k", "4k-6k", "6k-10k", "more_than_10k"])
     df.drop(columns=["income"], inplace=True)
 
     # Creating a new column with 5 property value bins based on lowest and highest property value
-    df["property_value_bin"] = pd.cut(df["property_value"], bins=[0, 200000, 400000, 600000, 1000000, 100000000], labels=["0-200k", "200k-400k", "400k-600k", "600k-1M", ">1M"])
+    df["property_value_bin"] = pd.cut(df["property_value"], bins=[0, 200000, 400000, 600000, 1000000, 100000000], labels=["0-200k", "200k-400k", "400k-600k", "600k-1M", "greater_than_1M"])
     df.drop(columns=["property_value"], inplace=True)
 
     # Vectorizing the categorical/ object columns
