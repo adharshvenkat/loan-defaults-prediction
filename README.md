@@ -58,6 +58,7 @@ The repository is structured in the following hierarchy:
     │   │   │                 predictions
     │   │   ├── predict_model.py
     │   │   └── train_model.py
+    |   |   └── random_forest.py
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
     │       └── visualize.py
