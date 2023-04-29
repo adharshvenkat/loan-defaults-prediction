@@ -1,3 +1,5 @@
+# Description: Feature engineering for loan default prediction model
+
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
@@ -53,9 +55,9 @@ def save_data(df: pd.DataFrame) -> None:
     Save data to data/processed folder
     """
 
-    print("Saving data to data/processed folder ...")
+    print("Saving data to data/interim folder ...")
     
-    df.to_csv("../../data/processed/loan_default_processed.csv", index=False)
+    df.to_csv("../../data/interim/loan_default_processed.csv", index=False)
 
 # -----------------------------------------------------------------------------
 # Main
