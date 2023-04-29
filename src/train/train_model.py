@@ -1,0 +1,71 @@
+# Description: Script to train all models
+
+# -----------------------------------------------------------------------------
+# Imports
+# -----------------------------------------------------------------------------
+import pandas as pd
+import random_forest
+from sklearn.model_selection import ShuffleSplit
+from sklearn.metrics import fbeta_score, make_scorer
+
+
+# -----------------------------------------------------------------------------
+# Functions
+# -----------------------------------------------------------------------------
+def get_data() -> pd.DataFrame:
+    """
+    Get the canonical data from data/processed folder for training
+    """
+
+    print("Reading canonical data from data/processed folder and splittin features and target ...")
+    
+    df_train = pd.read_csv("../../data/processed/train.csv")
+    df_test = pd.read_csv("../../data/processed/test.csv")
+
+    # Separating features and target
+    X_train = df_train.drop(columns=["Status"])
+    y_train = df_train["Status"]
+
+    X_test = df_test.drop(columns=["Status"])
+    y_test = df_test["Status"]
+
+    return X_train, y_train, X_test, y_test
+
+def train_models(X_train: pd.DataFrame, y_train: pd.DataFrame) -> None:
+    """
+    Training the models
+    """
+
+    print("Training model ...")
+
+    # Training model
+    scorer = {"AUC": "roc_auc", "F_score": make_scorer(fbeta_score, beta=1)}
+    cv_split = ShuffleSplit(n_splits=5, test_size=0.2, train_size=0.8, random_state=101)
+    best_cv_params, best_model = random_forest.train(X_train, y_train, scorer, cv_split)
+
+    return best_cv_params, best_model
+
+def evaluate_models(X_test: pd.DataFrame, y_test: pd.DataFrame, best_model, best_params) -> None:
+    """
+    Evaluating the best models
+    """
+
+    print("Evaluating model ...")
+
+    # Evaluating model
+    random_forest.evaluate(best_params, best_model, X_test, y_test)
+
+
+# -----------------------------------------------------------------------------
+# Main
+# -----------------------------------------------------------------------------
+if __name__ == "__main__":
+    
+    # Get data
+    X_train, y_train, X_test, y_test = get_data()
+    
+    # Train models
+    best_cv_params, best_model = train_models(X_train, y_train)
+    
+    # Evaluate models
+    evaluate_models(X_test, y_test, best_model, best_cv_params)
