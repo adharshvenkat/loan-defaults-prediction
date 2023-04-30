@@ -4,7 +4,7 @@
 # Imports
 # -----------------------------------------------------------------------------
 import pandas as pd
-import random_forest, gradient_boosting_machine
+import random_forest, gradient_boosting_machine, adaboost
 from sklearn.model_selection import ShuffleSplit
 from sklearn.metrics import fbeta_score, make_scorer
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     # models = [random_forest, 
     #           gradient_boosting_machine]
     
-    models = {random_forest: False, gradient_boosting_machine: True}
+    models = {random_forest: False, gradient_boosting_machine: True, adaboost: True}
 
     # Performing training and evaluation for all models
     for model in models:
