@@ -31,7 +31,7 @@ def get_data() -> pd.DataFrame:
 
     return X_train, y_train, X_test, y_test
 
-def train_models(X_train: pd.DataFrame, y_train: pd.DataFrame) -> None:
+def train_models(X_train: pd.DataFrame, y_train: pd.DataFrame, model) -> None:
     """
     Training the models
     """
@@ -41,11 +41,11 @@ def train_models(X_train: pd.DataFrame, y_train: pd.DataFrame) -> None:
     # Training model
     scorer = {"AUC": "roc_auc", "F_score": make_scorer(fbeta_score, beta=1)}
     cv_split = ShuffleSplit(n_splits=5, test_size=0.2, train_size=0.8, random_state=101)
-    best_cv_params, best_model = random_forest.train(X_train, y_train, scorer, cv_split)
+    best_cv_params, best_model = model.train(X_train, y_train, scorer, cv_split)
 
     return best_cv_params, best_model
 
-def evaluate_models(X_test: pd.DataFrame, y_test: pd.DataFrame, best_model, best_params) -> None:
+def evaluate_models(X_test: pd.DataFrame, y_test: pd.DataFrame, best_model, best_params, model) -> None:
     """
     Evaluating the best models
     """
@@ -53,7 +53,7 @@ def evaluate_models(X_test: pd.DataFrame, y_test: pd.DataFrame, best_model, best
     print("Evaluating model ...")
 
     # Evaluating model
-    random_forest.evaluate(best_params, best_model, X_test, y_test)
+    model.evaluate(best_params, best_model, X_test, y_test)
 
 
 # -----------------------------------------------------------------------------
@@ -63,9 +63,11 @@ if __name__ == "__main__":
     
     # Get data
     X_train, y_train, X_test, y_test = get_data()
-    
-    # Train models
-    best_cv_params, best_model = train_models(X_train, y_train)
-    
-    # Evaluate models
-    evaluate_models(X_test, y_test, best_model, best_cv_params)
+
+    # List of available models
+    models = [random_forest]
+
+    # Performing training and evaluation for all models
+    for model in models:
+        best_cv_params, best_model = train_models(X_train, y_train, model)
+        evaluate_models(X_test, y_test, best_model, best_cv_params, model)
