@@ -4,7 +4,7 @@
 # Imports
 # -----------------------------------------------------------------------------
 import pandas as pd
-import random_forest
+import random_forest, gradient_boosting_machine
 from sklearn.model_selection import ShuffleSplit
 from sklearn.metrics import fbeta_score, make_scorer
 
@@ -36,7 +36,7 @@ def train_models(X_train: pd.DataFrame, y_train: pd.DataFrame, model) -> None:
     Training the models
     """
 
-    print("Training model ...")
+    print(f"Training {model} model ...")
 
     # Training model
     scorer = {"AUC": "roc_auc", "F_score": make_scorer(fbeta_score, beta=1)}
@@ -50,7 +50,7 @@ def evaluate_models(X_test: pd.DataFrame, y_test: pd.DataFrame, best_model, best
     Evaluating the best models
     """
 
-    print("Evaluating model ...")
+    print(f"Evaluating {model} model ...")
 
     # Evaluating model
     model.evaluate(best_params, best_model, X_test, y_test)
@@ -65,9 +65,15 @@ if __name__ == "__main__":
     X_train, y_train, X_test, y_test = get_data()
 
     # List of available models
-    models = [random_forest]
+    # models = [random_forest, 
+    #           gradient_boosting_machine]
+    
+    models = {random_forest: False, gradient_boosting_machine: True}
 
     # Performing training and evaluation for all models
     for model in models:
-        best_cv_params, best_model = train_models(X_train, y_train, model)
-        evaluate_models(X_test, y_test, best_model, best_cv_params, model)
+        if models[model]:
+            best_cv_params, best_model = train_models(X_train, y_train, model)
+            evaluate_models(X_test, y_test, best_model, best_cv_params, model)
+        else:
+            print(f"Skipping {model} model ...")
