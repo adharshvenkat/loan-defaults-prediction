@@ -59,6 +59,8 @@ The repository is structured in the following hierarchy:
     │   │   ├── predict_model.py
     │   │   └── train_model.py
     |   |   └── random_forest.py
+    |   |   └── gradient_boosting_machine.py
+    |   |   └── adaboost.py
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
     │       └── visualize.py
