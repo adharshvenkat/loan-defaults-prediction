@@ -61,6 +61,8 @@ The repository is structured in the following hierarchy:
     |   |   └── random_forest.py
     |   |   └── gradient_boosting_machine.py
     |   |   └── adaboost.py
+    |   |   └── support_vector_machine.py
+    |   |   └── stacking_ensemble.py
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
     │       └── visualize.py
