@@ -4,8 +4,8 @@
 # Imports
 # -----------------------------------------------------------------------------
 import pandas as pd
-import random_forest, gradient_boosting_machine, adaboost
-from sklearn.model_selection import ShuffleSplit
+import random_forest, gradient_boosting_machine, adaboost, support_vector_machine, stacking_ensemble
+from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import fbeta_score, make_scorer
 
 
@@ -40,7 +40,7 @@ def train_models(X_train: pd.DataFrame, y_train: pd.DataFrame, model) -> None:
 
     # Training model
     scorer = {"AUC": "roc_auc", "F_score": make_scorer(fbeta_score, beta=1)}
-    cv_split = ShuffleSplit(n_splits=5, test_size=0.2, train_size=0.8, random_state=101)
+    cv_split = StratifiedKFold(n_splits=5, random_state=101, shuffle=True)
     best_cv_params, best_model = model.train(X_train, y_train, scorer, cv_split)
 
     return best_cv_params, best_model
@@ -65,10 +65,7 @@ if __name__ == "__main__":
     X_train, y_train, X_test, y_test = get_data()
 
     # List of available models
-    # models = [random_forest, 
-    #           gradient_boosting_machine]
-    
-    models = {random_forest: False, gradient_boosting_machine: True, adaboost: True}
+    models = {random_forest: False, gradient_boosting_machine: False, adaboost: False, support_vector_machine: False, stacking_ensemble: True}
 
     # Performing training and evaluation for all models
     for model in models:
