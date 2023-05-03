@@ -69,3 +69,13 @@ The repository is structured in the following hierarchy:
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
+
+Setting up the environment <a name="2"></a>
+------------
+
+
+
+
+
+Deploying the ML pipeline <a name="2"></a>
+------------
