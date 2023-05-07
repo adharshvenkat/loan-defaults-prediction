@@ -12,5 +12,3 @@ COPY . /home/loan-defaults-detection/
 
 RUN cd /home/loan-defaults-detection/ &&\
     pip3 install -r requirements.txt
-
-CMD ["bash", "/home/loan-defaults-detection/pre_processing.sh", "&&", "bash", "/home/loan-defaults-detection/modeling.sh"]
