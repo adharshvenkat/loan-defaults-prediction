@@ -79,9 +79,14 @@ Setting up the environment <a name="2"></a>
 Deploying the ML pipeline <a name="2"></a>
 ------------
 Running the container:
+
     $ docker run -it loan-defaults-prediction
+    
 Deploying the pre-processing pipeline:
+
     $ cd home/loan-defaults-prediction/
     $ bash pre_processing.sh
+    
 Deploying the training & evaluation pipeline:
+
     $ bash modeling.sh
